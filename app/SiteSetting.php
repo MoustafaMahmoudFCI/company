@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Slider extends Model
+class SiteSetting extends Model
 {
     protected $fillable = [
-        'title' , 'image' , 'desc' , 'link' , 'back_image'
+        'name' , 'type' , 'ar_content' , 'en_setting' , 'slug'
     ];
 }

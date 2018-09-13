@@ -28,8 +28,21 @@ Route::group(['prefix' => 'admin'] , function(){
         return view('admin.dashboard');
     });
 
-    Route::resource('category' , 'CategoryController');
-    Route::resource('service' , 'ServiceController');
+    Route::resources([
+        'category' => 'CategoryController' ,
+        'service' => 'ServiceController' ,
+        'portoflio' => 'PortoflioController' ,
+        'slider' => 'SliderController' ,
+        'partner' => 'OurPartnerController' ,
+        'testimonial' => 'TestimonialsController' ,
+        'users' => 'UsersController' ,
+    ]);
+
+    Route::get('users/{id}/changeRole' , 'UsersController@changeRole')->name('users.changeRole');
+
+    Route::get('setting' , 'SiteSettingController@index')->name('setting');
+    Route::put('setting/update' , 'SiteSettingController@update')->name('setting.update');
+
 });
 
 

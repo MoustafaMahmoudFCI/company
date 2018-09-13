@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title' , 'Services')
+@section('title' , 'Sliders')
 
 @section('content')
 <div class="content">
@@ -8,61 +8,59 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> Services </h4> 
+            <h4 class="card-title"> slider </h4>
             <!--  to add new service -->
-              <a href="{{ url('admin/service/create') }}">Add New Service</a>
+              <a href="{{ url('admin/slider/create') }}">Add New Slider</a>
           </div>
           <div class="card-body">
-              @if (count($services) > 0)
+              @if (count($sliders) > 0)
             <div class="table-responsive">
               <table class="table table-sm">
                 <thead class="">
                   <th>  #ID   </th>
-                  <th>  Icon  </th>
-                  <th>  Name English  </th>
-                  <th>  Name Arabic  </th>
-                  <th>  Desc English  </th>
-                  <th>  Desc Arabic  </th>
+                  <th> Image </th>
+                  <th> Back Image </th>
+                  <th>  Title English  </th>
+                  <th>  Title Arabic  </th>
                   <th> Edit </th>
                   <th> Delete </th>
                 </thead>
                 <tbody>
-                  @foreach ($services as $ser)
+                  @foreach ($sliders as $slider)
                       <tr>
                           <td>
-                              {{  $ser['id'] }}
+                              {{  $slider['id'] }}
                           </td>
                           <td>
-                            <i class="{{ $ser['icon'] }}"></i>
+                            <img class="img-fluid" width="40px" height="40px" src="{{ asset($slider->image) }}" alt="">
+                        </td>
+                        <td>
+                            <img class="img-fluid" width="40px" height="40px" src="{{ asset($slider->back_image) }}" alt="">
                         </td>
                         @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
-                            <td>
-                                {!! unserialize($ser['title'])[ $key ] !!}
+                            <td dir="rtl">
+                                {!! str_limit(unserialize($slider['title'])[ $key ] , 30) !!}
                             </td>
                         @endforeach
-                        @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
-                            <td>
-                                {!! str_limit( unserialize($ser['desc'])[ $key ] , 20 ) !!}
-                            </td>
-                        @endforeach
+
                           <td>
-                              <a href="{{ route('service.edit' , ['id' => $ser->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
-                            
+                              <a href="{{ route('slider.edit' , ['id' => $slider->id]) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+
                           </td>
                           <td>
-                              {!! Form::open(['route' => ['service.destroy' ,  $ser->id] , 'method' => 'DELETE']) !!}
+                              {!! Form::open(['route' => ['slider.destroy' ,  $slider->id] , 'method' => 'DELETE']) !!}
 
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
-                              
+
                               {!! Form::close() !!}
-                            
+
                           </td>
                       </tr>
-                      
+
                   @endforeach
                 </tbody>
               </table>
-              {{ $services->links() }}
+              {{ $sliders->links() }}
             </div>
               @else
               <div class="alert alert-warning">
@@ -75,3 +73,4 @@
     </div>
   </div>
 @endsection
+

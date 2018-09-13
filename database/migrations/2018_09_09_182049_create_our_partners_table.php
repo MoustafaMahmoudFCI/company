@@ -17,6 +17,7 @@ class CreateOurPartnersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('logo');
+            $table->string('link');
             $table->timestamps();
         });
     }
